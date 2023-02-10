@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 import logoImg from '../../assets/images/logo.svg';
 import { CiSearch } from 'react-icons/ci';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { SlBasket } from 'react-icons/sl';
+import { useBasket, useSearch } from '../../store';
 
 export const Header = () => {
   const [value, setValue] = useState('');
-  const [hoverHeart, setHoverHeart] = useState(true);
+  const basket = useBasket((state) => state.games);
+  const valueSearch = useSearch((state) => state.getValue);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -16,6 +17,7 @@ export const Header = () => {
 
   const handleChange = (e: any) => {
     setValue(e.target.value);
+    valueSearch(e.target.value);
   };
 
   const handleClick = () => {
@@ -40,27 +42,17 @@ export const Header = () => {
             onChange={(e) => handleChange(e)}
           />
           <button type="submit" onClick={handleClick}>
-            <CiSearch />
+            <Link to="/search">
+              <span>
+                <CiSearch />
+              </span>
+            </Link>
           </button>
         </form>
       </div>
       <div className={styles.info}>
-        <Link to="/favorite">
-          <button
-            className={styles.heart}
-            onMouseEnter={() => setHoverHeart(false)}
-            onMouseLeave={() => setHoverHeart(true)}
-          >
-            {hoverHeart ? (
-              <AiOutlineHeart />
-            ) : (
-              <span>
-                <AiFillHeart />
-              </span>
-            )}
-          </button>
-        </Link>
         <Link to="/basket">
+          {basket.length === 0 ? '' : <small>{basket.length}</small>}
           <button className={styles.basket}>
             <SlBasket />
           </button>

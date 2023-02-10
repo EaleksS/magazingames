@@ -40,10 +40,19 @@
 
     button {
       margin: auto auto;
-      color: #323232;
+
       font-size: 25px;
       transform: rotate(90deg);
       transition: all 0.2s ease-in-out;
+
+      span {
+        color: #323232;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          color: #fff;
+        }
+      }
 
       &:hover {
         color: #fff;
@@ -56,6 +65,29 @@
   display: flex;
   align-items: center;
   font-size: 25px;
+  position: relative;
+
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  small {
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    background: #323232;
+    color: #fff;
+    font-size: 18px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
 
   .heart {
     margin-right: 25px;
@@ -63,12 +95,6 @@
 
     span {
       color: #ff3030;
-    }
-
-    transition: all 0.2s ease-in-out;
-
-    &:hover {
-      transform: scale(1.1);
     }
   }
   .basket {

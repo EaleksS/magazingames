@@ -1,53 +1,32 @@
 import React from 'react';
-import { useBasket, useGames } from '../../store';
+import { useGames } from '../../store';
 import styles from './Games.module.scss';
-import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
+import MyLoader from '../MyLoader';
+import { useGamesQuery } from '../../hooks/useGamesQuery';
+import { Nav } from './Nav';
+import { Game } from './Game';
+
+const myArray = [1, 2, 3, 4, 5, 6, 7, 8];
 
 export const Games = () => {
-  const games = useGames((state) => state.games);
-  const addBasket = useBasket((state) => state.addGame);
+  const { isLoading } = useGamesQuery();
+  const { games } = useGames((state) => ({
+    games: state.games,
+  }));
 
   return (
     <div className={styles.container}>
-      <div className={styles.nav}>
-        <button className={styles.activate}>Новинки</button>
-        <button>Аккаунты</button>
-        <button>Ключи</button>
-        <button>Активация</button>
-        <button>Прокачка</button>
-      </div>
-
+      <Nav />
       <div className={styles.games}>
-        {games.map((game) => {
-          const { title, id, images, cent, oldCent } = game;
-          return (
-            <div className={styles.game} key={id}>
-              <img src={images} alt={title} />
-              <div className={styles.info}>
-                <div className={styles.cent}>
-                  <h2>{cent} P</h2>
-                  <h3>-15%</h3>
-                  <h4>{oldCent} P</h4>
+        {isLoading
+          ? myArray.map((id) => <MyLoader key={id} />)
+          : games.map((game) => {
+              return (
+                <div key={game.id}>
+                  <Game {...game} />
                 </div>
-                <div className={styles.title}>
-                  <h1>{title}</h1>
-                  <button onClick={() => addBasket(game)}>В корзину</button>
-                </div>
-
-                <div className={styles.gameInfo}>
-                  <span>
-                    <RiCheckboxBlankCircleFill />
-                    <p>Ключ</p>
-                  </span>
-                  <span>
-                    <RiCheckboxBlankCircleFill />
-                    <p>Аккаунт Steam</p>
-                  </span>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+              );
+            })}
       </div>
     </div>
   );

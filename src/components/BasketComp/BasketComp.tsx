@@ -1,12 +1,20 @@
 import React from 'react';
 import styles from './BasketComp.module.scss';
 import { VscClose } from 'react-icons/vsc';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import { useBasket } from '../../store';
+import { AiOutlineHeart } from 'react-icons/ai';
+// import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { useBasket, useGames } from '../../store';
+import { Link } from 'react-router-dom';
 
 export const BasketComp = () => {
   const basket = useBasket((state) => state.games);
   const deleteGame = useBasket((state) => state.deleteGame);
+  const deleteBasketId = useGames((state) => state.deleteBasketId);
+
+  const handleDeleteGame = (game: any) => {
+    deleteGame(game);
+    deleteBasketId(game.id);
+  };
 
   let i: number = 0;
 
@@ -23,7 +31,10 @@ export const BasketComp = () => {
             return (
               <div className={styles.game} key={game.id}>
                 <div className={styles.title}>
-                  <img src={game.images} alt={game.title} />
+                  <Link to={`/game/${game.id}`}>
+                    <img src={game.images} alt={game.title} />
+                  </Link>
+
                   <div>
                     <h1>{game.title}</h1>
                     <div className={styles.cent}>
@@ -44,7 +55,7 @@ export const BasketComp = () => {
                 <div className={styles.right}>
                   <button
                     className={styles.close}
-                    onClick={() => deleteGame(game)}
+                    onClick={() => handleDeleteGame(game)}
                   >
                     <VscClose />
                   </button>
