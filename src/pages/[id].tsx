@@ -20,6 +20,18 @@ export const GamePage = () => {
 
   let games: any = [];
 
+  if (
+    !isLoading &&
+    Number(window.location.pathname.slice(6)) > data.data.length
+  ) {
+    return (
+      <>
+        <Header />
+        <div style={{ textAlign: 'center' }}>Такой страницы нету</div>
+      </>
+    );
+  }
+
   if (!isLoading) {
     data.data.forEach((e: any) => {
       if (e.id === Number(window.location.pathname.slice(6))) {
