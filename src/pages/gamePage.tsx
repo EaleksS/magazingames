@@ -98,10 +98,9 @@ export const GamePage = () => {
                       <td>Тип товара</td>
                     </tr>
                     <tr>
-                      <td>{game.info.genre}</td>
-                      <td>{game.info.platform}</td>
-                      <td>{game.info.region}</td>
-                      <td>{game.info.type}</td>
+                      {game.info.map((item: any) => {
+                        return <td>{item}</td>;
+                      })}
                     </tr>
                   </tbody>
                 </table>
@@ -140,41 +139,41 @@ export const GamePage = () => {
               <div className={style.mainText}>
                 {btnInfo === 1 ? (
                   <>
-                    <h2>{game.description.description.title}</h2>
-                    <p>{game.description.description.text}</p>
+                    <h2>{game.description[0].title}</h2>
+                    <p>{game.description[0].text}</p>
                   </>
                 ) : btnInfo === 2 ? (
                   <>
                     <h2>Windows</h2>
                     <h2>Минимальные:</h2>
                     <p>
-                      <span>ОС:</span> {game.description.requirements.oc}
+                      <span>ОС:</span> {game.description[1].oc}
                     </p>
                     <p>
                       <span>Процессор:</span>
-                      {game.description.requirements.cpu}
+                      {game.description[1].cpu}
                     </p>
                     <p>
                       <span>Оперативная память:</span>
-                      {game.description.requirements.ram}
+                      {game.description[1].ram}
                     </p>
                     <p>
                       <span>Видеокарта:</span>
-                      {game.description.requirements.videocard}
+                      {game.description[1].videocard}
                     </p>
                     <p>
-                      <span>DirectX:</span>{' '}
-                      {game.description.requirements.directx}
+                      <span>DirectX:</span>
+                      {game.description[1].directx}
                     </p>
                     <p>
                       <span>Место на диске:</span>
-                      {game.description.requirements.discspace}
+                      {game.description[1].discspace}
                     </p>
                   </>
                 ) : btnInfo === 3 ? (
                   <>
-                    <h2>{game.description.activation.title}</h2>
-                    <p>{game.description.activation.text}</p>
+                    <h2>{game.description[2].title}</h2>
+                    <p>{game.description[2].text}</p>
                   </>
                 ) : (
                   'Информации нету'
@@ -188,3 +187,366 @@ export const GamePage = () => {
     </>
   );
 };
+
+const sd: any = [
+  {
+    id: 1,
+    title: 'Flowen',
+    images: '/games/game1.png',
+    cent: 1423,
+    discount: 0,
+    info: ['Гонки', 'Steam', 'Россия', 'Ключ'],
+    description: [
+      {
+        desc: 'desc',
+        title: 'Описание',
+        text: 'Текст',
+      },
+      {
+        windows: 'windows',
+        oc: 'Windows® 7/Vista/XP',
+        cpu: 'Intel® Core™ 2 Duo E6600 или AMD Phenom™ X3 8750',
+        ram: '2 GB ОЗУ',
+        videocard:
+          'Видеокарта с 256 МБ памяти или больше, совместимая с DirectX 9 с поддержкой Pixel Shader 3.0',
+        directx: 'Версии 9.0c',
+        discspace: '15 GB',
+      },
+      {
+        activate: 'activate',
+        title: 'активация',
+        text: 'активация',
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: 'Hohokum',
+    images: '/games/game2.png',
+    cent: 2300,
+    discount: 20,
+    info: ['Гонки', 'Steam', 'Россия', 'Ключ'],
+    description: [
+      {
+        desc: 'desc',
+        title: 'Описание',
+        text: 'Текст',
+      },
+      {
+        windows: 'windows',
+        oc: 'Windows® 7/Vista/XP',
+        cpu: 'Intel® Core™ 2 Duo E6600 или AMD Phenom™ X3 8750',
+        ram: '2 GB ОЗУ',
+        videocard:
+          'Видеокарта с 256 МБ памяти или больше, совместимая с DirectX 9 с поддержкой Pixel Shader 3.0',
+        directx: 'Версии 9.0c',
+        discspace: '15 GB',
+      },
+      {
+        activate: 'activate',
+        title: 'активация',
+        text: 'активация',
+      },
+    ],
+  },
+  {
+    id: 3,
+    title: 'E Witne',
+    images: '/games/game3.png',
+    cent: 500,
+    discount: 0,
+    info: ['Гонки', 'Steam', 'Россия', 'Ключ'],
+    description: [
+      {
+        desc: 'desc',
+        title: 'Описание',
+        text: 'Текст',
+      },
+      {
+        windows: 'windows',
+        oc: 'Windows® 7/Vista/XP',
+        cpu: 'Intel® Core™ 2 Duo E6600 или AMD Phenom™ X3 8750',
+        ram: '2 GB ОЗУ',
+        videocard:
+          'Видеокарта с 256 МБ памяти или больше, совместимая с DirectX 9 с поддержкой Pixel Shader 3.0',
+        directx: 'Версии 9.0c',
+        discspace: '15 GB',
+      },
+      {
+        activate: 'activate',
+        title: 'активация',
+        text: 'активация',
+      },
+    ],
+  },
+  {
+    id: 4,
+    title: 'Eastshade',
+    images: '/games/game4.png',
+    cent: 200,
+    discount: 5,
+    info: ['Гонки', 'Steam', 'Россия', 'Ключ'],
+    description: [
+      {
+        desc: 'desc',
+        title: 'Описание',
+        text: 'Текст',
+      },
+      {
+        windows: 'windows',
+        oc: 'Windows® 7/Vista/XP',
+        cpu: 'Intel® Core™ 2 Duo E6600 или AMD Phenom™ X3 8750',
+        ram: '2 GB ОЗУ',
+        videocard:
+          'Видеокарта с 256 МБ памяти или больше, совместимая с DirectX 9 с поддержкой Pixel Shader 3.0',
+        directx: 'Версии 9.0c',
+        discspace: '15 GB',
+      },
+      {
+        activate: 'activate',
+        title: 'активация',
+        text: 'активация',
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: 'Shape',
+    images: './games/game5.png',
+    cent: 600,
+    discount: 50,
+    info: ['Гонки', 'Steam', 'Россия', 'Ключ'],
+    description: [
+      {
+        desc: 'desc',
+        title: 'Описание',
+        text: 'Текст',
+      },
+      {
+        windows: 'windows',
+        oc: 'Windows® 7/Vista/XP',
+        cpu: 'Intel® Core™ 2 Duo E6600 или AMD Phenom™ X3 8750',
+        ram: '2 GB ОЗУ',
+        videocard:
+          'Видеокарта с 256 МБ памяти или больше, совместимая с DirectX 9 с поддержкой Pixel Shader 3.0',
+        directx: 'Версии 9.0c',
+        discspace: '15 GB',
+      },
+      {
+        activate: 'activate',
+        title: 'активация',
+        text: 'активация',
+      },
+    ],
+  },
+  {
+    id: 6,
+    title: 'Journey',
+    images: '/games/game6.png',
+    cent: 900,
+    discount: 10,
+    info: ['Гонки', 'Steam', 'Россия', 'Ключ'],
+    description: [
+      {
+        desc: 'desc',
+        title: 'Описание',
+        text: 'Текст',
+      },
+      {
+        windows: 'windows',
+        oc: 'Windows® 7/Vista/XP',
+        cpu: 'Intel® Core™ 2 Duo E6600 или AMD Phenom™ X3 8750',
+        ram: '2 GB ОЗУ',
+        videocard:
+          'Видеокарта с 256 МБ памяти или больше, совместимая с DirectX 9 с поддержкой Pixel Shader 3.0',
+        directx: 'Версии 9.0c',
+        discspace: '15 GB',
+      },
+      {
+        activate: 'activate',
+        title: 'активация',
+        text: 'активация',
+      },
+    ],
+  },
+  {
+    id: 7,
+    title: 'Short Hike',
+    images: '/games/game7.png',
+    cent: 1640,
+    discount: 99,
+    info: ['Гонки', 'Steam', 'Россия', 'Ключ'],
+    description: [
+      {
+        desc: 'desc',
+        title: 'Описание',
+        text: 'Текст',
+      },
+      {
+        windows: 'windows',
+        oc: 'Windows® 7/Vista/XP',
+        cpu: 'Intel® Core™ 2 Duo E6600 или AMD Phenom™ X3 8750',
+        ram: '2 GB ОЗУ',
+        videocard:
+          'Видеокарта с 256 МБ памяти или больше, совместимая с DirectX 9 с поддержкой Pixel Shader 3.0',
+        directx: 'Версии 9.0c',
+        discspace: '15 GB',
+      },
+      {
+        activate: 'activate',
+        title: 'активация',
+        text: 'активация',
+      },
+    ],
+  },
+  {
+    id: 8,
+    title: 'Little Big Planet',
+    images: '/games/game8.png',
+    cent: 666,
+    discount: 0,
+    info: ['Гонки', 'Steam', 'Россия', 'Ключ'],
+    description: [
+      {
+        desc: 'desc',
+        title: 'Описание',
+        text: 'Текст',
+      },
+      {
+        windows: 'windows',
+        oc: 'Windows® 7/Vista/XP',
+        cpu: 'Intel® Core™ 2 Duo E6600 или AMD Phenom™ X3 8750',
+        ram: '2 GB ОЗУ',
+        videocard:
+          'Видеокарта с 256 МБ памяти или больше, совместимая с DirectX 9 с поддержкой Pixel Shader 3.0',
+        directx: 'Версии 9.0c',
+        discspace: '15 GB',
+      },
+      {
+        activate: 'activate',
+        title: 'активация',
+        text: 'активация',
+      },
+    ],
+  },
+  {
+    id: 9,
+    title: 'Unravel',
+    images: '/games/game9.png',
+    cent: 3400,
+    discount: 0,
+    info: ['Гонки', 'Steam', 'Россия', 'Ключ'],
+    description: [
+      {
+        desc: 'desc',
+        title: 'Описание',
+        text: 'Текст',
+      },
+      {
+        windows: 'windows',
+        oc: 'Windows® 7/Vista/XP',
+        cpu: 'Intel® Core™ 2 Duo E6600 или AMD Phenom™ X3 8750',
+        ram: '2 GB ОЗУ',
+        videocard:
+          'Видеокарта с 256 МБ памяти или больше, совместимая с DirectX 9 с поддержкой Pixel Shader 3.0',
+        directx: 'Версии 9.0c',
+        discspace: '15 GB',
+      },
+      {
+        activate: 'activate',
+        title: 'активация',
+        text: 'активация',
+      },
+    ],
+  },
+  {
+    id: 10,
+    title: 'Seasons after Fall',
+    images: '/games/game10.png',
+    cent: 1200,
+    discount: 5,
+    info: ['Гонки', 'Steam', 'Россия', 'Ключ'],
+    description: [
+      {
+        desc: 'desc',
+        title: 'Описание',
+        text: 'Текст',
+      },
+      {
+        windows: 'windows',
+        oc: 'Windows® 7/Vista/XP',
+        cpu: 'Intel® Core™ 2 Duo E6600 или AMD Phenom™ X3 8750',
+        ram: '2 GB ОЗУ',
+        videocard:
+          'Видеокарта с 256 МБ памяти или больше, совместимая с DirectX 9 с поддержкой Pixel Shader 3.0',
+        directx: 'Версии 9.0c',
+        discspace: '15 GB',
+      },
+      {
+        activate: 'activate',
+        title: 'активация',
+        text: 'активация',
+      },
+    ],
+  },
+  {
+    id: 11,
+    title: 'Yonder',
+    images: '/games/game11.png',
+    cent: 1700,
+    discount: 50,
+    info: ['Гонки', 'Steam', 'Россия', 'Ключ'],
+    description: [
+      {
+        desc: 'desc',
+        title: 'Описание',
+        text: 'Текст',
+      },
+      {
+        windows: 'windows',
+        oc: 'Windows® 7/Vista/XP',
+        cpu: 'Intel® Core™ 2 Duo E6600 или AMD Phenom™ X3 8750',
+        ram: '2 GB ОЗУ',
+        videocard:
+          'Видеокарта с 256 МБ памяти или больше, совместимая с DirectX 9 с поддержкой Pixel Shader 3.0',
+        directx: 'Версии 9.0c',
+        discspace: '15 GB',
+      },
+      {
+        activate: 'activate',
+        title: 'активация',
+        text: 'активация',
+      },
+    ],
+  },
+  {
+    id: 12,
+    title: 'Minecraft',
+    images: '/games/game12.png',
+    cent: 700,
+    discount: 0,
+    info: ['Гонки', 'Steam', 'Россия', 'Ключ'],
+    description: [
+      {
+        desc: 'desc',
+        title: 'Описание',
+        text: 'Текст',
+      },
+      {
+        windows: 'windows',
+        oc: 'Windows® 7/Vista/XP',
+        cpu: 'Intel® Core™ 2 Duo E6600 или AMD Phenom™ X3 8750',
+        ram: '2 GB ОЗУ',
+        videocard:
+          'Видеокарта с 256 МБ памяти или больше, совместимая с DirectX 9 с поддержкой Pixel Shader 3.0',
+        directx: 'Версии 9.0c',
+        discspace: '15 GB',
+      },
+      {
+        activate: 'activate',
+        title: 'активация',
+        text: 'активация',
+      },
+    ],
+  },
+];
