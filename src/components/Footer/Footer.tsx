@@ -99,7 +99,7 @@ export const Footer = () => {
         <Link to="" className={styles.pravo}>
           Правовая информация
         </Link>
-        <h1>Интернет-магазин игр «Playnchill» © 2022</h1>
+        <h1>Интернет-магазин игр © 2023</h1>
         <div>
           <a href=".#">
             <img src={vk} alt="vk" />
