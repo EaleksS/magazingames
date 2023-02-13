@@ -28,6 +28,7 @@ export const GamePage = () => {
       <>
         <Header />
         <div style={{ textAlign: 'center' }}>Такой страницы нету</div>
+        <Footer />
       </>
     );
   }
