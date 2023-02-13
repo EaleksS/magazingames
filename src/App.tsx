@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Basket } from './pages/Basket';
 import { Home } from './pages/Home';
 import { Search } from './pages/Search';
-import { GamePage } from './pages/[id]';
+import { GamePage } from './pages/gamePage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
