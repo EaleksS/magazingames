@@ -1,16 +1,16 @@
 import React from 'react';
 import styles from './Games.module.scss';
-import { useBasket, useGames } from '../../store';
+import { useBasket } from '../../store';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
 export const Game = (game: any) => {
-  const { title, images, cent, oldCent } = game;
+  const { title, images, cent, discount } = game;
   const { addBasket, deleteGame } = useBasket((state) => ({
     addBasket: state.addGame,
     deleteGame: state.deleteGame,
   }));
-  const { getBasketId, inBasket, deleteBasketId } = useGames((state) => ({
+  const { getBasketId, inBasket, deleteBasketId } = useBasket((state) => ({
     getBasketId: state.getBasketId,
     inBasket: state.inBasket,
     deleteBasketId: state.deleteBasketId,
@@ -39,9 +39,15 @@ export const Game = (game: any) => {
       </Link>
       <div className={styles.info}>
         <div className={styles.cent}>
-          <h2>{cent} P</h2>
-          <h3>-15%</h3>
-          <h4>{oldCent} P</h4>
+          {discount !== 0 ? (
+            <>
+              <h2>{Math.round((cent * (100 - discount)) / 100)} P</h2>
+              <h3>-{discount}%</h3>
+              <h4>{cent} Р</h4>
+            </>
+          ) : (
+            <h2>{cent} P</h2>
+          )}
         </div>
         <div className={styles.title}>
           <h1>{title}</h1>

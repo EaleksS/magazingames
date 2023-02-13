@@ -1,29 +1,28 @@
 import React from 'react';
 import styles from './BasketComp.module.scss';
 import { VscClose } from 'react-icons/vsc';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiOutlineArrowDown } from 'react-icons/ai';
 // import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import { useBasket, useGames } from '../../store';
+import { useBasket } from '../../store';
 import { Link } from 'react-router-dom';
 
 export const BasketComp = () => {
-  const basket = useBasket((state) => state.games);
-  const deleteGame = useBasket((state) => state.deleteGame);
-  const deleteBasketId = useGames((state) => state.deleteBasketId);
+  const { basket, deleteGame, price } = useBasket((state) => ({
+    basket: state.games,
+    deleteGame: state.deleteGame,
+    price: state.price,
+  }));
+  const deleteBasketId = useBasket((state) => state.deleteBasketId);
 
   const handleDeleteGame = (game: any) => {
     deleteGame(game);
     deleteBasketId(game.id);
   };
 
-  let i: number = 0;
-
-  basket.forEach((cent) => (i += cent.cent));
-
   return (
     <div className={styles.container}>
       <h1>
-        Корзина <span>{basket.length}</span>
+        Корзина <span>{basket.length === 0 ? '' : basket.length}</span>
       </h1>
       <div className={styles.basket}>
         <div className={styles.games}>
@@ -38,9 +37,20 @@ export const BasketComp = () => {
                   <div>
                     <h1>{game.title}</h1>
                     <div className={styles.cent}>
-                      <h2>{game.cent}</h2>
-                      <h3>-25%</h3>
-                      <h4>{game.oldCent}</h4>
+                      {game.discount > 0 ? (
+                        <>
+                          <h2>
+                            {Math.round(
+                              (game.cent * (100 - game.discount)) / 100
+                            )}
+                            P
+                          </h2>
+                          <h3>-{game.discount}%</h3>
+                          <h4>{game.cent} Р</h4>
+                        </>
+                      ) : (
+                        <h2>{game.cent} P</h2>
+                      )}
                     </div>
                     <div className={styles.region}>
                       <p>
@@ -70,12 +80,13 @@ export const BasketComp = () => {
         <div className={styles.info}>
           <div>
             <h3>{basket.length} товаров</h3>
-            <h2>{i}</h2>
-            <button>Оформить заказ</button>
-            <p>
-              Покупая данный товар, я подтверждаю,что ознакомился и согласен с
-              <a href=".#"> условиями </a> и <a href=".#"> условия магазина</a>
-            </p>
+            <h2>{price} Р</h2>
+
+            <a href="#pay">
+              <button>
+                <AiOutlineArrowDown className={styles.ai} />
+              </button>
+            </a>
           </div>
           <p className={styles.ceil}>
             <span>%</span> Если у вас есть купон на скидку, Вы сможете ввести

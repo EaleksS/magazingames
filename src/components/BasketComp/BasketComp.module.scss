@@ -138,10 +138,19 @@
           margin-bottom: 30px;
 
           font-weight: 600;
-          font-size: 18px;
+          font-size: 25px;
           line-height: 130%;
 
           color: #77be1d;
+          .ai {
+            transition: all 0.2s ease-in-out;
+          }
+
+          &:hover {
+            .ai {
+              transform: translateY(10px);
+            }
+          }
         }
 
         p {

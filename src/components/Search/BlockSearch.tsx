@@ -22,7 +22,7 @@ export const BlockSearch = () => {
                   .toLowerCase()
                   .split(' ')
                   .join('')
-                  .includes(value.split(' ').join(''));
+                  .includes(value.toLowerCase().split(' ').join(''));
               })
               .map((game) => {
                 return (

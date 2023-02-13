@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './Header.module.scss';
-import logoImg from '../../assets/images/logo.svg';
+import logoImg from '../../images/logo.svg';
 import { CiSearch } from 'react-icons/ci';
 import { SlBasket } from 'react-icons/sl';
 import { useBasket, useSearch } from '../../store';
@@ -10,7 +10,7 @@ export const Header = () => {
   const [value, setValue] = useState('');
   const basket = useBasket((state) => state.games);
   const valueSearch = useSearch((state) => state.getValue);
-
+  const navigate = useNavigate();
   const handleSubmit = (e: any) => {
     e.preventDefault();
   };
@@ -20,7 +20,13 @@ export const Header = () => {
     valueSearch(e.target.value);
   };
 
-  const handleClick = () => {
+  const handleClick = (e: any) => {
+    e.preventDefault();
+
+    if (window.location.pathname !== '/search') {
+      navigate('/search');
+    }
+
     setValue('');
   };
 
@@ -42,11 +48,9 @@ export const Header = () => {
             onChange={(e) => handleChange(e)}
           />
           <button type="submit" onClick={handleClick}>
-            <Link to="/search">
-              <span>
-                <CiSearch />
-              </span>
-            </Link>
+            <span>
+              <CiSearch />
+            </span>
           </button>
         </form>
       </div>
