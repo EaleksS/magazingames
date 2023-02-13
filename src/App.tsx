@@ -23,6 +23,7 @@ function App() {
         <Route path="/basket" element={<Basket />}></Route>
         <Route path="/search" element={<Search />}></Route>
         <Route path={`/game/:id`} element={<GamePage />}></Route>;
+        <Route path="/:id" element={<div>Ошибка</div>}></Route>
       </Routes>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
