@@ -4,14 +4,12 @@ import { useGamesQuery } from '../hooks/useGamesQuery';
 import styles from '../components/Games/Games.module.scss';
 import style from './style.module.scss';
 import { BsCheckCircle } from 'react-icons/bs';
-import { useBasket, useGames } from '../store';
+import { useBasket } from '../store';
 import { Link } from 'react-router-dom';
 import { Footer } from '../components/Footer/Footer';
-
 export const GamePage = () => {
   const [btnInfo, setBtnInfo]: any = useState(1);
-  const { isLoading } = useGamesQuery();
-  const games = useGames((state) => state.games);
+  const { isLoading, res } = useGamesQuery();
   const { addBasket, getBasketId, inBasket } = useBasket((state) => ({
     addBasket: state.addGame,
     getBasketId: state.getBasketId,
@@ -19,30 +17,32 @@ export const GamePage = () => {
     deleteBasketId: state.deleteBasketId,
   }));
 
-  if (!isLoading && Number(window.location.pathname.slice(6)) > games.length) {
+  let games: any = [];
+
+  if (
+    !isLoading &&
+    Number(window.location.pathname.slice(6)) > res.data.length
+  ) {
     return (
       <>
         <Header />
         <div style={{ textAlign: 'center' }}>Такой страницы нету</div>
-        <Footer />
       </>
     );
   }
 
   if (!isLoading) {
-    games.forEach((e: any) => {
+    res.data.forEach((e: any) => {
       if (e.id === Number(window.location.pathname.slice(6))) {
         games.push(e);
       }
     });
   }
   const game = games[0];
-
   const handleBasket = () => {
     addBasket(game);
     getBasketId(game.id);
   };
-
   let flag = false;
   if (!isLoading) {
     inBasket.forEach((id) => {
@@ -51,7 +51,6 @@ export const GamePage = () => {
       }
     });
   }
-
   return (
     <>
       <Header />
