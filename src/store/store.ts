@@ -122,11 +122,11 @@ export const useStore = create(
           console.log(response.data.access_token);
           console.log(response.data.refresh_token);
           localStorage.setItem('token', response.data.access_token);
+          get().setAuth(true);
           const responseUser = await axios.get(`${API_URL}/users/me`, {
             withCredentials: true,
           });
           get().setUser(responseUser.data);
-          get().setAuth(true);
         } catch (e: any) {
           console.log(e.response?.data?.message);
         }
@@ -169,7 +169,7 @@ export const useStore = create(
           get().setUser(responseUser.data);
           get().setAuth(true);
 
-          if (localStorage.getItem('token') === response.data.access_token) {
+          if (!localStorage.getItem('token')) {
             get().setAuth(false);
           }
         } catch (error) {}
