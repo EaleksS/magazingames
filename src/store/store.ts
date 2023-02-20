@@ -168,6 +168,10 @@ export const useStore = create(
           });
           get().setUser(responseUser.data);
           get().setAuth(true);
+
+          if (localStorage.getItem('token') === response.data.access_token) {
+            get().setAuth(false);
+          }
         } catch (error) {}
       },
     }),
