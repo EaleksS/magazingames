@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../Games/Games.module.scss';
-import { useSearch } from '../../store';
+import { useSearch } from '../../store/store';
 import { Nav } from './Nav';
 import { Game } from '../Games/Game';
 import { useGamesQuery } from '../../hooks/useGamesQuery';

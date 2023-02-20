@@ -3,7 +3,7 @@ import styles from './BasketComp.module.scss';
 import { VscClose } from 'react-icons/vsc';
 import { AiOutlineHeart, AiOutlineArrowDown } from 'react-icons/ai';
 // import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import { useBasket } from '../../store';
+import { useBasket } from '../../store/store';
 import { Link } from 'react-router-dom';
 
 export const BasketComp = () => {
@@ -12,11 +12,9 @@ export const BasketComp = () => {
     deleteGame: state.deleteGame,
     price: state.price,
   }));
-  const deleteBasketId = useBasket((state) => state.deleteBasketId);
 
   const handleDeleteGame = (game: any) => {
     deleteGame(game);
-    deleteBasketId(game.id);
   };
 
   return (

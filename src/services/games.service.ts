@@ -1,11 +1,8 @@
 import axios from 'axios';
-
-const API_URL = 'https://63935afcab513e12c50bf517.mockapi.io';
-
-axios.defaults.baseURL = API_URL;
+import { API_URL } from '../http';
 
 export const GamesService = {
   async getAll() {
-    return axios.get('/items');
+    return axios.get(`${API_URL}/games`);
   },
 };

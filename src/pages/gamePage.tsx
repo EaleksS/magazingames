@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { Header } from '../components/Header/Header';
 import { useGamesQuery } from '../hooks/useGamesQuery';
 import styles from '../components/Games/Games.module.scss';
 import style from './style.module.scss';
 import { BsCheckCircle } from 'react-icons/bs';
-import { useBasket } from '../store';
+import { useBasket } from '../store/store';
 import { Link } from 'react-router-dom';
 import { Footer } from '../components/Footer/Footer';
-export const GamePage = () => {
+
+export const GamePage: FC = () => {
   const [btnInfo, setBtnInfo]: any = useState(1);
   const { isLoading, res } = useGamesQuery();
-  const { addBasket, getBasketId, inBasket } = useBasket((state) => ({
+  const { addBasket, basketGames } = useBasket((state) => ({
     addBasket: state.addGame,
-    getBasketId: state.getBasketId,
-    inBasket: state.inBasket,
-    deleteBasketId: state.deleteBasketId,
+    basketGames: state.games,
   }));
 
   let games: any = [];
@@ -42,12 +41,11 @@ export const GamePage = () => {
   const game = games[0];
   const handleBasket = () => {
     addBasket(game);
-    getBasketId(game.id);
   };
   let flag = false;
   if (!isLoading) {
-    inBasket.forEach((id) => {
-      if (id === game.id) {
+    basketGames.forEach((games) => {
+      if (games.id === game.id) {
         flag = true;
       }
     });

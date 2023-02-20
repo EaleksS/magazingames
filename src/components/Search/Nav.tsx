@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSearch } from '../../store';
+import { useSearch } from '../../store/store';
 import styles from '../Games/Games.module.scss';
 
 export const Nav = () => {

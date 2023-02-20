@@ -38,12 +38,15 @@
   }
 
   .games {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 40px;
+
     .game {
       position: relative;
+      display: block;
       width: 300px;
       margin-bottom: 40px;
       transition: all 0.2s ease-in-out;
@@ -132,26 +135,6 @@
 
             &:hover {
               background: rgba($color: #77be1d, $alpha: 0.7);
-            }
-          }
-        }
-
-        .gameInfo {
-          display: flex;
-
-          span {
-            display: flex;
-            align-items: center;
-            margin-right: 20px;
-            color: #3d394a;
-            font-size: 14px;
-
-            p {
-              color: #747474;
-              margin-left: 9px;
-              font-weight: 500;
-              font-size: 14px;
-              line-height: 130%;
             }
           }
         }

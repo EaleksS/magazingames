@@ -9,13 +9,14 @@ import mirImg from '../../images/1920px-Mir-logo.SVG 1.svg';
 import ethereumImg from '../../images/ETHEREUM-YOUTUBE-PROFILE-PIC 1.svg';
 import bitcoinImg from '../../images/2560px-Bitcoin_logo 1.svg';
 import samsungPayImg from '../../images/640px-Samsung_Pay_icon 1.svg';
-import { useBasket } from '../../store';
+import { useBasket, useStore } from '../../store/store';
 
 export const BasketPay = () => {
   const { basket, price } = useBasket((state) => ({
     basket: state.games,
     price: state.price,
   }));
+  const { user } = useStore();
   const [active, setActive] = useState('bank');
 
   return (
@@ -83,7 +84,11 @@ export const BasketPay = () => {
         </div>
         <div className={styles.mail}>
           <form>
-            <input type="text" placeholder="Укажите почту" />
+            <input
+              type="text"
+              defaultValue={user.email}
+              placeholder="Укажите почту"
+            />
           </form>
         </div>
       </div>

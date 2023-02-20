@@ -1,13 +1,13 @@
-import React, { FC } from 'react';
+import React, {FC} from 'react';
 import { Footer } from '../components/Footer/Footer';
 import { Header } from '../components/Header/Header';
-import { BlockSearch } from '../components/Search/BlockSearch';
+import { Register } from '../components/Register/Register';
 
-export const Search: FC = () => {
+export const RegisterPage: FC = () => {
   return (
     <>
       <Header />
-      <BlockSearch />
+      <Register />
       <Footer />
     </>
   );

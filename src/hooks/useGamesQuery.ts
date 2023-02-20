@@ -6,9 +6,6 @@ export const useGamesQuery = () => {
     'games list',
     () => GamesService.getAll(),
     {
-      onSuccess: ({ data }) => {
-        console.log(data);
-      },
       onError: (error: any) => {
         alert(error.message);
       },

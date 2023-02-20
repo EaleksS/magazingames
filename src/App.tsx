@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Route, Routes } from 'react-router-dom';
@@ -6,6 +6,9 @@ import { Basket } from './pages/Basket';
 import { Home } from './pages/Home';
 import { Search } from './pages/Search';
 import { GamePage } from './pages/gamePage';
+import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
+import { useStore } from './store/store';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,14 +19,23 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  const { checkAuth, isAuth } = useStore();
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      checkAuth();
+    }
+  }, [checkAuth]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/basket" element={<Basket />}></Route>
-        <Route path="/search" element={<Search />}></Route>
-        <Route path={`/game/:id`} element={<GamePage />}></Route>;
-        <Route path="/:id" element={<div>Ошибка</div>}></Route>
+        <Route path="/" element={isAuth ? <Home /> : <LoginPage />} />
+        <Route path="/basket" element={isAuth ? <Basket /> : <LoginPage />} />
+        <Route path="/search" element={isAuth ? <Search /> : <LoginPage />} />
+        <Route path="/auth/login" element={<LoginPage />} />
+        <Route path="/auth/register" element={<RegisterPage />} />
+        <Route path={`/game/:id`} element={<GamePage />} />
+        <Route path="/:id" element={<div>Ошибка</div>} />
       </Routes>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
