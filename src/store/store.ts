@@ -99,75 +99,78 @@ export const useSearch = create<ISearch>((set) => ({
 }));
 
 export const useStore = create(
-  devtools<LoginState>((set, get) => ({
-    user: {
-      name: '',
-      email: '',
-      photo: '',
-      id: '',
-      created_at: '',
-      update_at: '',
-    },
-    isAuth: false,
-    setUser: (user) => {
-      set({ user: user });
-    },
-    setAuth: (bool) => {
-      set({ isAuth: bool });
-    },
-    login: async (email, password) => {
-      try {
-        const response = await AuthService.login(email, password);
-        console.log(response.data.access_token);
-        console.log(response.data.refresh_token);
-        localStorage.setItem('token', response.data.access_token);
-        const responseUser = await axios.get(`${API_URL}/users/me`, {
-          withCredentials: true,
-        });
-        get().setUser(responseUser.data);
-        get().setAuth(true);
-      } catch (e: any) {
-        console.log(e.response?.data?.message);
-      }
-    },
-    register: async (name, email, photo, password, passwordConfirm) => {
-      const response = await AuthService.register(
-        name,
-        email,
-        photo,
-        password,
-        passwordConfirm
-      );
-      console.log(response);
-      try {
-      } catch (error: any) {
-        console.log(error?.message);
-      }
-    },
-    logout: async () => {
-      try {
-        await AuthService.logout();
-        localStorage.removeItem('token');
-        get().setAuth(false);
-        get().setUser({} as IUser);
-      } catch (e: any) {
-        console.log(e.response?.data?.message);
-      }
-    },
-    checkAuth: async () => {
-      try {
-        const response = await axios.get<AuthResponse>(
-          `${API_URL}/auth/refresh`,
-          { withCredentials: true }
+  persist<LoginState>(
+    (set, get) => ({
+      user: {
+        name: '',
+        email: '',
+        photo: '',
+        id: '',
+        created_at: '',
+        update_at: '',
+      },
+      isAuth: false,
+      setUser: (user) => {
+        set({ user: user });
+      },
+      setAuth: (bool) => {
+        set({ isAuth: bool });
+      },
+      login: async (email, password) => {
+        try {
+          const response = await AuthService.login(email, password);
+          console.log(response.data.access_token);
+          console.log(response.data.refresh_token);
+          localStorage.setItem('token', response.data.access_token);
+          const responseUser = await axios.get(`${API_URL}/users/me`, {
+            withCredentials: true,
+          });
+          get().setUser(responseUser.data);
+          get().setAuth(true);
+        } catch (e: any) {
+          console.log(e.response?.data?.message);
+        }
+      },
+      register: async (name, email, photo, password, passwordConfirm) => {
+        const response = await AuthService.register(
+          name,
+          email,
+          photo,
+          password,
+          passwordConfirm
         );
         console.log(response);
-        localStorage.setItem('token', response.data.access_token);
-        const responseUser = await axios.get(`${API_URL}/users/me`, {
-          withCredentials: true,
-        });
-        get().setUser(responseUser.data);
-        get().setAuth(true);
-      } catch (error) {}
-    },
-  }))
+        try {
+        } catch (error: any) {
+          console.log(error?.message);
+        }
+      },
+      logout: async () => {
+        try {
+          await AuthService.logout();
+          localStorage.removeItem('token');
+          get().setAuth(false);
+          get().setUser({} as IUser);
+        } catch (e: any) {
+          console.log(e.response?.data?.message);
+        }
+      },
+      checkAuth: async () => {
+        try {
+          const response = await axios.get<AuthResponse>(
+            `${API_URL}/auth/refresh`,
+            { withCredentials: true }
+          );
+          console.log(response);
+          localStorage.setItem('token', response.data.access_token);
+          const responseUser = await axios.get(`${API_URL}/users/me`, {
+            withCredentials: true,
+          });
+          get().setUser(responseUser.data);
+          get().setAuth(true);
+        } catch (error) {}
+      },
+    }),
+    { name: 'ToDoLocalStorage' }
+  )
 );
