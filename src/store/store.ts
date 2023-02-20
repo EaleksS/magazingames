@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { error } from 'console';
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { API_URL } from '../http';

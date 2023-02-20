@@ -7,8 +7,6 @@ import masterCardImg from '../../images/mastercard 2.svg';
 import visaImg from '../../images/Visa_Inc._logo 1.svg';
 import mirImg from '../../images/1920px-Mir-logo.SVG 1.svg';
 import bitcoinImg from '../../images/2560px-Bitcoin_logo 1.svg';
-import subtract from '../../images/Subtract.svg';
-import google from '../../images/google.png';
 import vk from '../../images/Vk.svg';
 import discord from '../../images/Discord.svg';
 import Twitter from '../../images/Twitter.svg';

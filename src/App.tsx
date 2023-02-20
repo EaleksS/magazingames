@@ -5,7 +5,6 @@ import { Route, Routes } from 'react-router-dom';
 import { Basket } from './pages/Basket';
 import { Home } from './pages/Home';
 import { Search } from './pages/Search';
-import { GamePage } from './pages/gamePage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { useStore } from './store/store';
@@ -34,8 +33,8 @@ function App() {
         <Route path="/search" element={isAuth ? <Search /> : <LoginPage />} />
         <Route path="/auth/login" element={<LoginPage />} />
         <Route path="/auth/register" element={<RegisterPage />} />
-        <Route path={`/game/:id`} element={<GamePage />} />
-        <Route path="/:id" element={<div>Ошибка</div>} />
+        <Route path="/:id" element={<div>Такой страницы нету</div>} />
+        <Route path="/:id/:id" element={<div>Такой страницы нету</div>} />
       </Routes>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

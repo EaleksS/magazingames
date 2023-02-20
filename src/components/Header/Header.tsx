@@ -40,7 +40,7 @@ export const Header = () => {
           <div className={styles.logo}>
             <img src={logoImg} alt="logo" />
             <Link to="/">
-              <h1>Project</h1>
+              <h1>Магазин</h1>
             </Link>
           </div>
 
