@@ -118,7 +118,8 @@ export const useStore = create(
     login: async (email, password) => {
       try {
         const response = await AuthService.login(email, password);
-        console.log(response);
+        console.log(response.data.access_token);
+        console.log(response.data.refresh_token);
         localStorage.setItem('token', response.data.access_token);
         const responseUser = await axios.get(`${API_URL}/users/me`, {
           withCredentials: true,
