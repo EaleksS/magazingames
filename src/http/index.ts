@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_URL = `http://localhost:8000/api`;
+export const API_URL = `https://fast-api-auth.onrender.com/api`;
 
 const $api = axios.create({
   withCredentials: true,
