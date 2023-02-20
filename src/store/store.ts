@@ -157,20 +157,21 @@ export const useStore = create(
       },
       checkAuth: async () => {
         try {
-          const response = await axios.get<AuthResponse>(
-            `${API_URL}/auth/refresh`,
-            { withCredentials: true }
-          );
-          console.log(response);
-          localStorage.setItem('token', response.data.access_token);
-          const responseUser = await axios.get(`${API_URL}/users/me`, {
-            withCredentials: true,
-          });
-          get().setUser(responseUser.data);
-          get().setAuth(true);
-
           if (!localStorage.getItem('token')) {
+            get().setUser({} as IUser);
             get().setAuth(false);
+          } else {
+            const response = await axios.get<AuthResponse>(
+              `${API_URL}/auth/refresh`,
+              { withCredentials: true }
+            );
+            console.log(response);
+            localStorage.setItem('token', response.data.access_token);
+            const responseUser = await axios.get(`${API_URL}/users/me`, {
+              withCredentials: true,
+            });
+            get().setUser(responseUser.data);
+            get().setAuth(true);
           }
         } catch (error) {}
       },

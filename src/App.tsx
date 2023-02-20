@@ -20,10 +20,8 @@ const queryClient = new QueryClient({
 function App() {
   const { checkAuth, isAuth } = useStore();
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      checkAuth();
-    }
-  }, [checkAuth]);
+    checkAuth();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
