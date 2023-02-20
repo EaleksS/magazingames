@@ -4,7 +4,7 @@ import { useStore } from '../../store/store';
 import styles from './Login.module.scss';
 
 export const Login: FC = () => {
-  const { login, isAuth } = useStore();
+  const { login, isAuth, error } = useStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,6 +47,7 @@ export const Login: FC = () => {
           войти
         </button>
       </form>
+      <p>{error}</p>
       <p>
         у вас нет учетной записи?
         <Link to="/auth/register" className={styles.link}>

@@ -21,6 +21,9 @@ interface ISearch {
 interface LoginState {
   user: IUser;
   isAuth: boolean;
+  error: string | null;
+  emailError: string | null;
+  passwordError: string | null;
   setUser: (user: IUser) => void;
   setAuth: (bool: boolean) => void;
   login: (email: string, password: string) => void;
@@ -99,7 +102,7 @@ export const useSearch = create<ISearch>((set) => ({
 }));
 
 export const useStore = create(
-  persist<LoginState>(
+  devtools<LoginState>(
     (set, get) => ({
       user: {
         name: '',
@@ -109,6 +112,9 @@ export const useStore = create(
         created_at: '',
         update_at: '',
       },
+      error: null,
+      emailError: null,
+      passwordError: null,
       isAuth: false,
       setUser: (user) => {
         set({ user: user });
@@ -118,31 +124,37 @@ export const useStore = create(
       },
       login: async (email, password) => {
         try {
-          const response = await AuthService.login(email, password);
-          console.log(response.data.access_token);
-          console.log(response.data.refresh_token);
-          localStorage.setItem('token', response.data.access_token);
-          get().setAuth(true);
-          const responseUser = await axios.get(`${API_URL}/users/me`, {
-            withCredentials: true,
-          });
-          get().setUser(responseUser.data);
-        } catch (e: any) {
-          console.log(e.response?.data?.message);
+          const respon = await AuthService.login(email, password);
+          localStorage.setItem('token', respon.data.access_token);
+          console.log(respon.request);
+          await axios
+            .get(`${API_URL}/users/me`, {
+              withCredentials: true,
+            })
+            .then((res) => {
+              get().setAuth(true);
+              console.log('success');
+              get().setUser(res.data);
+            });
+        } catch (error: any) {
+          console.log(error.response);
+          console.error(error.response?.data.detail[0].msg);
+          console.error(error.response?.data.detail[1].msg);
+          console.error(error.response.data.detail);
         }
       },
       register: async (name, email, photo, password, passwordConfirm) => {
-        const response = await AuthService.register(
-          name,
-          email,
-          photo,
-          password,
-          passwordConfirm
-        );
-        console.log(response);
         try {
+          const response = await AuthService.register(
+            name,
+            email,
+            photo,
+            password,
+            passwordConfirm
+          );
+          console.log(response);
         } catch (error: any) {
-          console.log(error?.message);
+          console.log(error.response.data);
         }
       },
       logout: async () => {
@@ -151,8 +163,8 @@ export const useStore = create(
           localStorage.removeItem('token');
           get().setAuth(false);
           get().setUser({} as IUser);
-        } catch (e: any) {
-          console.log(e.response?.data?.message);
+        } catch (error: any) {
+          console.log(error.response.data);
         }
       },
       checkAuth: async () => {
@@ -162,13 +174,21 @@ export const useStore = create(
             { withCredentials: true }
           );
           localStorage.setItem('token', response.data.access_token);
-          const responseUser = await axios.get(`${API_URL}/users/me`, {
-            withCredentials: true,
-          });
-          console.log(responseUser.data.detail);
-          get().setUser(responseUser.data);
-          get().setAuth(true);
-        } catch (error) {}
+          await axios
+            .get(`${API_URL}/users/me`, {
+              withCredentials: true,
+            })
+            .then((res) => {
+              console.log(res.status);
+              get().setAuth(true);
+              get().setUser(res.data);
+              console.log('success');
+            });
+        } catch (error: any) {
+          console.error(error.response?.data.detail[0].msg);
+          console.error(error.response?.data.detail[1].msg);
+          console.error(error.response.data.detail);
+        }
       },
     }),
     { name: 'ToDoLocalStorage' }
