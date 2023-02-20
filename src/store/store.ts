@@ -165,7 +165,7 @@ export const useStore = create(
           const responseUser = await axios.get(`${API_URL}/users/me`, {
             withCredentials: true,
           });
-          console.log(responseUser.status);
+          console.log(responseUser.data.detail);
           get().setUser(responseUser.data);
           get().setAuth(true);
         } catch (error) {}
