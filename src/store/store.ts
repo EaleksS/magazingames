@@ -21,9 +21,6 @@ interface ISearch {
 interface LoginState {
   user: IUser;
   isAuth: boolean;
-  error: string | null;
-  emailError: string | null;
-  passwordError: string | null;
   setUser: (user: IUser) => void;
   setAuth: (bool: boolean) => void;
   login: (email: string, password: string) => void;
@@ -102,7 +99,7 @@ export const useSearch = create<ISearch>((set) => ({
 }));
 
 export const useStore = create(
-  devtools<LoginState>(
+  persist<LoginState>(
     (set, get) => ({
       user: {
         name: '',
@@ -112,9 +109,6 @@ export const useStore = create(
         created_at: '',
         update_at: '',
       },
-      error: null,
-      emailError: null,
-      passwordError: null,
       isAuth: false,
       setUser: (user) => {
         set({ user: user });
@@ -138,8 +132,6 @@ export const useStore = create(
             });
         } catch (error: any) {
           console.log(error.response);
-          console.error(error.response?.data.detail[0].msg);
-          console.error(error.response?.data.detail[1].msg);
           console.error(error.response.data.detail);
         }
       },
@@ -180,13 +172,19 @@ export const useStore = create(
             })
             .then((res) => {
               console.log(res.status);
-              get().setAuth(true);
-              get().setUser(res.data);
-              console.log('success');
+              if (res.status !== 200) {
+                get().setAuth(false);
+                get().setUser({} as IUser);
+                localStorage.removeItem('token');
+                console.log('token истек');
+              } else {
+                get().setAuth(true);
+                get().setUser(res.data);
+                console.log('success');
+              }
             });
         } catch (error: any) {
-          console.error(error.response?.data.detail[0].msg);
-          console.error(error.response?.data.detail[1].msg);
+          console.log(error.response);
           console.error(error.response.data.detail);
         }
       },
