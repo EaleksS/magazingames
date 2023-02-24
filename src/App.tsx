@@ -18,7 +18,7 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  const { checkAuth, isAuth } = useStore();
+  const { checkAuth } = useStore();
   useEffect(() => {
     if (localStorage.getItem('token')) {
       checkAuth();
@@ -28,9 +28,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Routes>
-        <Route path="/" element={isAuth ? <Home /> : <LoginPage />} />
-        <Route path="/basket" element={isAuth ? <Basket /> : <LoginPage />} />
-        <Route path="/search" element={isAuth ? <Search /> : <LoginPage />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/basket" element={<Basket />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/auth/login" element={<LoginPage />} />
         <Route path="/auth/register" element={<RegisterPage />} />
         <Route path="/:id" element={<div>Такой страницы нету</div>} />

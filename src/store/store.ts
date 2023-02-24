@@ -99,7 +99,7 @@ export const useSearch = create<ISearch>((set) => ({
 }));
 
 export const useStore = create(
-  persist<LoginState>(
+  devtools<LoginState>(
     (set, get) => ({
       user: {
         name: '',
