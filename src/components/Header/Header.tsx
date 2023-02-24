@@ -35,42 +35,39 @@ export const Header = () => {
   return (
     <>
       <Nav />
-      {isAuth ? (
-        <div className={styles.container}>
-          <div className={styles.logo}>
-            <img src={logoImg} alt="logo" />
-            <Link to="/">
-              <h1>Магазин</h1>
-            </Link>
-          </div>
 
-          <div className={styles.search}>
-            <form onSubmit={(e) => handleSubmit(e)}>
-              <input
-                type="text"
-                placeholder="Поиск"
-                value={value}
-                onChange={(e) => handleChange(e)}
-              />
-              <button type="submit" onClick={handleClick}>
-                <span>
-                  <CiSearch />
-                </span>
-              </button>
-            </form>
-          </div>
-          <div className={styles.info}>
-            <Link to="/basket">
-              {basket.length === 0 ? '' : <small>{basket.length}</small>}
-              <button className={styles.basket}>
-                <SlBasket />
-              </button>
-            </Link>
-          </div>
+      <div className={styles.container}>
+        <div className={styles.logo}>
+          <img src={logoImg} alt="logo" />
+          <Link to="/">
+            <h1>Магазин</h1>
+          </Link>
         </div>
-      ) : (
-        ''
-      )}
+
+        <div className={styles.search}>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <input
+              type="text"
+              placeholder="Поиск"
+              value={value}
+              onChange={(e) => handleChange(e)}
+            />
+            <button type="submit" onClick={handleClick}>
+              <span>
+                <CiSearch />
+              </span>
+            </button>
+          </form>
+        </div>
+        <div className={styles.info}>
+          <Link to="/basket">
+            {basket.length === 0 ? '' : <small>{basket.length}</small>}
+            <button className={styles.basket}>
+              <SlBasket />
+            </button>
+          </Link>
+        </div>
+      </div>
     </>
   );
 };
